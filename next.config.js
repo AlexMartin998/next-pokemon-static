@@ -3,9 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
 
   // docker
-  experimental: {
-    outputStandalone: true,
-  },
+  output: 'standalone',
 };
 
 module.exports = nextConfig;
