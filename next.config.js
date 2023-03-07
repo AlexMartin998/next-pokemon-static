@@ -7,7 +7,7 @@ const nextConfig = {
 
   // images - static gen
   images: {
-    domains: ['raw.githubusercontent.com'],
+    domains: ['raw.githubusercontent.com', ],
   },
 };
 
