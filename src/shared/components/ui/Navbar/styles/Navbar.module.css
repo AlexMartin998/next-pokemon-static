@@ -1,0 +1,17 @@
+.navbar-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem 0 0;
+  /* background-color: red; */
+}
+
+.navbar-container__left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: none;
+  padding: none;
+  /* background-color: red; */
+}

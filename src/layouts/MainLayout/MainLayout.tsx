@@ -1,5 +1,7 @@
 import Head from 'next/head';
 
+import { Navbar } from '@/shared/components';
+
 export interface MainLayoutProps {
   children: JSX.Element | JSX.Element[];
   title: string;
@@ -15,8 +17,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title }) => {
         <meta name="keywords" content={`${title}, pokemon, pokedex`} />
       </Head>
 
-      {/* <Navbar/> */}
-      <main>{children}</main>
+      <Navbar />
+
+      <main className="main-container">{children}</main>
     </>
   );
 };
