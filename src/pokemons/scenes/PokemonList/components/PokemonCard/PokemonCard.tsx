@@ -11,7 +11,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/pokemon/${pokemon.id}`); // navigate
+    router.push(`/name/${pokemon.name}`); // navigate
   };
 
   return (

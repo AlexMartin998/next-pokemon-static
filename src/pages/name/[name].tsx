@@ -4,6 +4,7 @@ import { pokeApi } from '@/api';
 import { MainLayout } from '@/layouts';
 import { PokemonScene } from '@/pokemons';
 import { Pokemon, PokemonListResponse } from '@/interfaces';
+import { getPokemonInfo } from '@/pokemons/shared';
 
 interface PokemonPageProps {
   pokemon: Pokemon;
@@ -36,13 +37,11 @@ export const getStaticPaths: GetStaticPaths = async ctx => {
 // props > FC/Page
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { name } = params as { name: string }; // name <- getStaticPaths
-  const {
-    data: { id, name: pokeName, sprites },
-  } = await pokeApi.get<Pokemon>(`/pokemon/${name}`);
 
   return {
     props: {
-      pokemon: { id, pokeName, sprites }, // static data generated in build time
+      // si falla, falla en build time
+      pokemon: await getPokemonInfo(name), // static data generated in build time
     },
   };
 };
