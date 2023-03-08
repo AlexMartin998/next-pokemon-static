@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
 
 import { pokeApi } from '@/api';
-import { Pokemon } from '@/interfaces';
 import { MainLayout } from '@/layouts';
+import { Pokemon } from '@/interfaces';
 
 interface PokemonPageProps {
   pokemon: Pokemon;
