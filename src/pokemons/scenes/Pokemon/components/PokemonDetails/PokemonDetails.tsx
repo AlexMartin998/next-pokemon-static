@@ -17,8 +17,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon }) => {
     setIsInFavorites(!isInFavorites);
   };
 
-  // // importante setearlo en el useEffect xq sino da error 500 ya q retorna false cuando se ejecuta del lado del server y true del lado del cleint
-  //Warning: Text content did not match. Server: "Save in Favorites" Client: "In Favorites"
+  // // importante setearlo en el useEffect xq sino da error 500 ya q retorna false cuando se ejecuta del lado del server y true del lado del cleint: | Warning: Text content did not match. Server: "Save in Favorites" Client: "In Favorites"
   useEffect(() => {
     setIsInFavorites(handleLocalStorage.existInFavorites(pokemon.id));
   }, [pokemon.id]);

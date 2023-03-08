@@ -1,9 +1,14 @@
-const toggleFavorites = (id: number) => {
-  const favoritesKey = 'favorites';
+const favoritesKey = 'favorites';
 
-  const favoritesSet = new Set<number>(
-    JSON.parse(localStorage.getItem(favoritesKey) || '[]')
-  );
+const getFavorites = () => {
+  const favorites = localStorage.getItem(favoritesKey);
+  return favorites ? new Set(JSON.parse(favorites)) : new Set();
+};
+
+const toggleFavorites = (id: number) => {
+  const favoritesSet = getFavorites();
+
+  console.log('toggleFavorites');
 
   if (favoritesSet.has(id)) favoritesSet.delete(id);
   else favoritesSet.add(id);
@@ -13,14 +18,12 @@ const toggleFavorites = (id: number) => {
 };
 
 const existInFavorites = (id: number): boolean => {
-  // error 500 - runing in server side
+  // error 500 - runing in server side - it's not necesary if you use useEffect to set useState
   if (typeof window === 'undefined') return false;
 
-  const favorites = new Set<number>(
-    JSON.parse(localStorage.getItem('favorites') || '[]')
-  );
+  const favoritesSet = getFavorites();
 
-  return favorites.has(id);
+  return favoritesSet.has(id);
 };
 
 const exportedFn = { toggleFavorites, existInFavorites };
