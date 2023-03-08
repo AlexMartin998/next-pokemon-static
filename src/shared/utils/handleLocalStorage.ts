@@ -5,7 +5,7 @@ const getFavorites = () => {
   return favorites ? new Set(JSON.parse(favorites)) : new Set();
 };
 
-const toggleFavorites = (id: number) => {
+const toggleFavorites = (id: number): void => {
   const favoritesSet = getFavorites();
 
   console.log('toggleFavorites');
@@ -26,5 +26,8 @@ const existInFavorites = (id: number): boolean => {
   return favoritesSet.has(id);
 };
 
-const exportedFn = { toggleFavorites, existInFavorites };
+const getFavoritePokemons = (): number[] =>
+  JSON.parse(localStorage.getItem(favoritesKey) || '[]');
+
+const exportedFn = { toggleFavorites, existInFavorites, getFavoritePokemons };
 export default exportedFn;
