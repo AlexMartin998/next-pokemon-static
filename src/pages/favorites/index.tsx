@@ -13,7 +13,7 @@ interface FPState {
 const FavoritesPage: NextPage = () => {
   const [favoritePokemons, setfavoritePokemons] = useState<
     FPState['favorites']
-  >([]);
+  >([1]);
 
   useEffect(() => {
     setfavoritePokemons(handleLocalStorage.getFavoritePokemons());

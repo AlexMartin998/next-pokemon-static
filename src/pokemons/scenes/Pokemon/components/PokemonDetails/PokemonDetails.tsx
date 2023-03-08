@@ -1,9 +1,10 @@
-import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
+import confetti from 'canvas-confetti';
 
 import { Pokemon } from '@/interfaces';
 import { handleLocalStorage } from '@/shared/utils';
-import { useState, useEffect } from 'react';
 
 interface PokemonDetailsProps {
   pokemon: Pokemon;
@@ -15,6 +16,15 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon }) => {
   const onToggleFavorite = () => {
     handleLocalStorage.toggleFavorites(pokemon.id);
     setIsInFavorites(!isInFavorites);
+
+    if (isInFavorites) return;
+    confetti({
+      zIndex: 999,
+      particleCount: 100,
+      spread: 160,
+      angle: -100,
+      origin: { x: 1, y: 0 },
+    });
   };
 
   // // importante setearlo en el useEffect xq sino da error 500 ya q retorna false cuando se ejecuta del lado del server y true del lado del cleint: | Warning: Text content did not match. Server: "Save in Favorites" Client: "In Favorites"

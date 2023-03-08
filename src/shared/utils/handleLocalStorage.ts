@@ -8,8 +8,6 @@ const getFavorites = () => {
 const toggleFavorites = (id: number): void => {
   const favoritesSet = getFavorites();
 
-  console.log('toggleFavorites');
-
   if (favoritesSet.has(id)) favoritesSet.delete(id);
   else favoritesSet.add(id);
 
