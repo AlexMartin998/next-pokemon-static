@@ -13,7 +13,7 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
   // const { query } = useRouter(); // client side - get url param
 
   return (
-    <MainLayout title={`Pokemon | ${pokemon.name}`}>
+    <MainLayout title={`Pokemon id | ${pokemon.id}`}>
       <PokemonScene pokemon={pokemon} />
     </MainLayout>
   );
@@ -36,11 +36,13 @@ export const getStaticPaths: GetStaticPaths = async ctx => {
 // props > FC/Page
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string }; // id <- getStaticPaths
-  const { data } = await pokeApi.get<Pokemon>(`/pokemon/${id}`);
+  const {
+    data: { id: pokeId, name, sprites },
+  } = await pokeApi.get<Pokemon>(`/pokemon/${id}`);
 
   return {
     props: {
-      pokemon: data, // static data generated in build time
+      pokemon: { pokeId, name, sprites }, // static data generated in build time
     },
   };
 };
