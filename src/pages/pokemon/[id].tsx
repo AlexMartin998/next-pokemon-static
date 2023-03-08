@@ -89,7 +89,7 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
 };
 
 // // next.js will execute it in build time - only in server side
-// only for dynamics routes with getStaticProps
+// only for dynamics routes WITH getStaticProps <- build 151 pages
 export const getStaticPaths: GetStaticPaths = async ctx => {
   const pokemons151 = [...Array(151)].map((_, index) => `${index + 1}`);
 
