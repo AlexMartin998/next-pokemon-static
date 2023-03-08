@@ -14,8 +14,8 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
   // const { query } = useRouter(); // client side - get url param
 
   return (
-    <MainLayout title="Algun pokémon">
-      <Grid.Container css={{ marginTop: '5px' }} gap={2}>
+    <MainLayout title={`Pokemon | ${pokemon.name}`}>
+      <Grid.Container css={{ marginTop: '21px' }} gap={2}>
         <Grid xs={12} sm={4}>
           <Card isHoverable css={{ padding: '30px' }}>
             <Card.Body>
