@@ -1,13 +1,34 @@
-import Image from 'next/image';
 import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
+import Image from 'next/image';
 
 import { Pokemon } from '@/interfaces';
+import { handleLocalStorage } from '@/shared/utils';
 
 interface PokemonDetailsProps {
   pokemon: Pokemon;
 }
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon }) => {
+  const onToggleFavorite = () => {
+    handleLocalStorage.toggleFavorites(pokemon.id);
+  };
+
+  /* 
+  // // Only runs on client side
+  useEffect(() => {
+    // console.log('useEffect', localStorage.getItem('ls'));
+  }, []); */
+
+  /* console.log({
+    isRunning: 'Both sides',
+
+    // Nos ayuda a saber si estamos corriendo code del lado sel server o client
+    typeOfWindowClientObj: typeof window, // server = undefined | client = obj
+
+    // // Da ERROR xq localStorage NO existe en el server (node), solo en el cliente (browser)
+    // localStorage: localStorage.getItem('ls'),
+  }); */
+
   return (
     <Grid xs={12} sm={8}>
       <Card css={{ p: '12px 24px' }}>
@@ -16,7 +37,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon }) => {
             {pokemon.name}
           </Text>
 
-          <Button color="gradient" ghost>
+          <Button onPress={onToggleFavorite} color="gradient" ghost>
             Guardar en favoritos
           </Button>
         </Card.Header>
