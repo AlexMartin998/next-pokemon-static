@@ -1,10 +1,12 @@
 import { NextPage } from 'next';
+
 import { MainLayout } from '@/layouts';
+import { NoPokemon } from '@/pokemons/shared';
 
 const FavoritesPage: NextPage = () => {
   return (
     <MainLayout title="Favorites">
-      <h1>FavoritesPage</h1>
+      <NoPokemon title="No favorites" />
     </MainLayout>
   );
 };
