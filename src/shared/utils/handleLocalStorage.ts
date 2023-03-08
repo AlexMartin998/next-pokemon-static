@@ -1,17 +1,17 @@
 const toggleFavorites = (id: number) => {
-  console.log('toggleFavorites');
+  const favoritesKey = 'favorites';
 
-  let favorites: number[] = JSON.parse(
-    localStorage.getItem('favorites') || '[]'
+  const favoritesSet = new Set<number>(
+    JSON.parse(localStorage.getItem(favoritesKey) || '[]')
   );
 
-  if (favorites.includes(id)) {
-    favorites = favorites.filter(pokeIdLs => pokeIdLs !== id);
-  } else {
-    favorites.push(id);
-  }
+  console.log('toggleFavorites');
 
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+  if (favoritesSet.has(id)) favoritesSet.delete(id);
+  else favoritesSet.add(id);
+
+  // localStorage.setItem(favoritesKey, JSON.stringify([...favoritesSet]));
+  localStorage.setItem(favoritesKey, JSON.stringify(Array.from(favoritesSet)));
 };
 
 const exportedFn = { toggleFavorites };
