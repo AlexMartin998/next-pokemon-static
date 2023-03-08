@@ -3,15 +3,25 @@ import Image from 'next/image';
 
 import { Pokemon } from '@/interfaces';
 import { handleLocalStorage } from '@/shared/utils';
+import { useState, useEffect } from 'react';
 
 interface PokemonDetailsProps {
   pokemon: Pokemon;
 }
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon }) => {
+  const [isInFavorites, setIsInFavorites] = useState(false);
+
   const onToggleFavorite = () => {
     handleLocalStorage.toggleFavorites(pokemon.id);
+    setIsInFavorites(!isInFavorites);
   };
+
+  // // importante setearlo en el useEffect xq sino da error 500 ya q retorna false cuando se ejecuta del lado del server y true del lado del cleint
+  //Warning: Text content did not match. Server: "Save in Favorites" Client: "In Favorites"
+  useEffect(() => {
+    setIsInFavorites(handleLocalStorage.existInFavorites(pokemon.id));
+  }, [pokemon.id]);
 
   /* 
   // // Only runs on client side
@@ -37,8 +47,12 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ pokemon }) => {
             {pokemon.name}
           </Text>
 
-          <Button onPress={onToggleFavorite} color="gradient" ghost>
-            Guardar en favoritos
+          <Button
+            onPress={onToggleFavorite}
+            color="gradient"
+            bordered={!isInFavorites}
+          >
+            {isInFavorites ? 'In Favorites' : 'Save in Favorites'}
           </Button>
         </Card.Header>
 

@@ -5,8 +5,6 @@ const toggleFavorites = (id: number) => {
     JSON.parse(localStorage.getItem(favoritesKey) || '[]')
   );
 
-  console.log('toggleFavorites');
-
   if (favoritesSet.has(id)) favoritesSet.delete(id);
   else favoritesSet.add(id);
 
@@ -14,5 +12,16 @@ const toggleFavorites = (id: number) => {
   localStorage.setItem(favoritesKey, JSON.stringify(Array.from(favoritesSet)));
 };
 
-const exportedFn = { toggleFavorites };
+const existInFavorites = (id: number): boolean => {
+  // error 500 - runing in server side
+  if (typeof window === 'undefined') return false;
+
+  const favorites = new Set<number>(
+    JSON.parse(localStorage.getItem('favorites') || '[]')
+  );
+
+  return favorites.has(id);
+};
+
+const exportedFn = { toggleFavorites, existInFavorites };
 export default exportedFn;
