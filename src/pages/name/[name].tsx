@@ -20,6 +20,12 @@ const PokemonByNamePage: NextPage<PokemonPageProps> = ({ pokemon }) => {
   );
 };
 
+
+
+
+
+
+
 // // next.js will execute it in build time - only in server side
 // only for dynamics routes WITH getStaticProps <- build 151 pages with [name] as name
 export const getStaticPaths: GetStaticPaths = async ctx => {
@@ -30,19 +36,44 @@ export const getStaticPaths: GetStaticPaths = async ctx => {
       params: { name }, // name <- [name].tsx
     })),
 
-    fallback: false,
+    // fallback: false,   // SSG
+    fallback: 'blocking'  // ISG
   };
 };
+
+
+
 
 // props > FC/Page
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { name } = params as { name: string }; // name <- getStaticPaths
 
+  // ISG
+  const pokemon = await getPokemonInfo(name);
+  if ( !pokemon ) {
+    return {
+      redirect: {
+        destination: '/', // if it don't exist, redirect to /
+        
+        // permanent in true tells google bots to no longer index the page
+        permanent: false  // this page could be exist in the future
+      }
+    }
+  }
+
   return {
     props: {
+      // // SSG
       // si falla, falla en build time
-      pokemon: await getPokemonInfo(name), // static data generated in build time
+      // pokemon: await getPokemonInfo(name), // static data generated in build time
+
+
+      // // ISG <-- ISR
+      pokemon,
     },
+
+    // ISR
+    revalidate: 86400,  // c/24h - in seconds
   };
 };
 
